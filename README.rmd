@@ -114,7 +114,7 @@ Performance_Holt
 # Plotting the series and forecast: SES and Holt-Linear models
 
 ```{r}
-plot(ts(sales),xlim=c(1,30))
+plot(ts(sales),xlim=c(1,31))
 lines(SES.Sales$fitted[,1],col="red",lty=2)
 lines(Holt.Lin.Sales$fitted[,1],col="green",lty=2)
 lines(Forecast_ses,col ="red",lty=5)
