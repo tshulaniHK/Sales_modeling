@@ -14,8 +14,8 @@ In this particular exercise, I will be using Quarterly sales data to fit two mod
 Then obtain each models Means Error(ME), Mean Average Error(MAE), Mean Average Prediction Error(MAPE), Mean Square Error(MSE) and their Theil's U statistics. Lastly I will plot the models together with their forecasts. 
 
 
-```{r,warning=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```{r,message=FALSE, echo=TRUE, warning=FALSE}
+
 rm(list = ls()) # Clean your environment:
 gc() # garbage collection - It can be useful to call gc after a large object has been removed, as this may prompt R to return memory to the operating system.
 library(tidyverse)
