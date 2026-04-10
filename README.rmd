@@ -59,11 +59,6 @@ MAPE_ses <- mean(abs(E[9:23,]/ SES.Sales$x[10:24,] )) * 100
 MSE_ses <- mean(E[9:23,]^2)
 
 A <- sum((SES_Ft[8:23]- SES.Sales$x[9:24,]/SES.Sales$x[9:24,])^2)
-
-
-
-
-
 B <- sum((SES.Sales$x[10:24,]-SES.Sales$x[9:23,]/SES.Sales$x[9:23,])^2)
 
 U_SES  <- sqrt(A/B)
@@ -74,6 +69,62 @@ Performance_SES <- data.frame("ME"=ME_ses, "MAE"= MAE_ses, "MAPE"= MAPE_ses,
 
 Performance_SES
 
-forecast_ses <- predict(SES.Sales,n.ahead = 8)
+Forecast_ses <- predict(SES.Sales,n.ahead = 8)
+```
+
+
+# Holt- Linear Method
+
+```{r}
+Holt.Lin.Sales <- HoltWinters(ts(sales),gamma=FALSE)
+Holt.Lin.Sales
+
+Holy_Ft<-Holt.Lin.Sales$fitted[,1]
+Holt.Lin.Sales$x
+
+
+Error_holt <- Holt.Lin.Sales$x - Holt.Lin.Sales$fitted[,1]
+
+ME_holt <- mean(Error_holt[8:22,])
+MAE_holt <- mean(abs(Error_holt[8:22,]))
+MAPE_holt <- mean(abs(Error_holt[8:22,]/ Holt.Lin.Sales$x[10:24,] )) * 100
+MSE_holt <- mean(Error_holt[8:22,]^2)
+
+
+A_holt <- sum((Holy_Ft[8:21]- Holt.Lin.Sales$x[10:23,]/Holt.Lin.Sales$x[9:22,])^2)
+
+B_holt <- sum((Holt.Lin.Sales$x[10:24,]-Holt.Lin.Sales$x[9:23,]/Holt.Lin.Sales$x[9:23,])^2)
+
+U_holt  <- sqrt(A_holt/B_holt)
+
+
+
+Performance_Holt <- data.frame("ME"=ME_holt, "MAE"= MAE_holt, "MAPE"= MAPE_holt,
+                               "MSE"= MSE_holt, "Theil-U"= U_holt)
+
+Forecast_holt <- predict(Holt.Lin.Sales,n.ahead =  8)
+
+Performance_Holt
+
+
+```
+
+
+
+# Plotting the series and forecast: SES and Holt-Linear models
+
+```{r}
+plot(ts(sales),xlim=c(1,30))
+lines(SES.Sales$fitted[,1],col="red",lty=2)
+lines(Holt.Lin.Sales$fitted[,1],col="green",lty=2)
+lines(Forecast_ses,col ="red",lty=5)
+lines(Forecast_holt,col="green", lty=5)
+
+
+legend("topleft", 
+       legend=c("Sales", "SES Fitted", "Holt-Lin Fitted", "SES Predicted", "Holt-Lin Predicted"), 
+       col=c("black", "red", "green", "red", "green"), 
+       lty=c(1, 2, 2, 5, 5), 
+       cex=0.7)
 ```
 
