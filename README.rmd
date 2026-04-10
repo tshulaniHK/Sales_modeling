@@ -44,8 +44,7 @@ SES.Sales<-HoltWinters(ts(sales), beta=FALSE,gamma=FALSE)
 SES.Sales
 
 SES_Ft<-SES.Sales$fitted[,1]
-SES_Ft
-SES.Sales$x
+
 
 error <- sales[2:24,] -as.numeric(SES_Ft)
 
@@ -66,10 +65,10 @@ U_SES  <- sqrt(A/B)
 
 Performance_SES <- data.frame("ME"=ME_ses, "MAE"= MAE_ses, "MAPE"= MAPE_ses,
                                "MSE"= MSE_ses, "Theil-U"= U_SES)
-
+Forecast_ses <- predict(SES.Sales,n.ahead = 8)
 Performance_SES
 
-Forecast_ses <- predict(SES.Sales,n.ahead = 8)
+
 ```
 
 
@@ -80,7 +79,7 @@ Holt.Lin.Sales <- HoltWinters(ts(sales),gamma=FALSE)
 Holt.Lin.Sales
 
 Holy_Ft<-Holt.Lin.Sales$fitted[,1]
-Holt.Lin.Sales$x
+
 
 
 Error_holt <- Holt.Lin.Sales$x - Holt.Lin.Sales$fitted[,1]
