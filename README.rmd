@@ -15,7 +15,7 @@ Then obtain each models Means Error(ME), Mean Average Error(MAE), Mean Average P
 
 
 ```{r,warning=FALSE}
-
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 rm(list = ls()) # Clean your environment:
 gc() # garbage collection - It can be useful to call gc after a large object has been removed, as this may prompt R to return memory to the operating system.
 library(tidyverse)
